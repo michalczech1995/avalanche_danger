@@ -33,7 +33,7 @@ def find_params(date, lag=2):
             tmp_df = tmp_df.loc[tmp_df.index[0]]
             wthr = tmp_df[importantWeatherCols].tolist()
         except Exception:
-            return "KUPA"
+            return "error"
         else:
             weather += wthr
     return weather
@@ -52,7 +52,7 @@ for el in df_danger_level.index:
     danger = df_danger_level.loc[el]["level"]
     date = df_danger_level.loc[el]["date"]
     weather = find_params(date, lag=LAGS)
-    if weather != "KUPA":
+    if weather != "error":
         y.append(danger)
         X.append(weather)
 
@@ -83,4 +83,4 @@ for no in list(range(LAGS))[::-1]:
 
 tmp = list(zip(names,clf.feature_importances_))
 sorted_list = sorted(tmp, key=operator.itemgetter(1), reverse=True)
-dupa=0
+print(sorted_list)
